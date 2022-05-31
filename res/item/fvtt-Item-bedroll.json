@@ -1,0 +1,35 @@
+{
+  "name": "Bedroll",
+  "type": "loot",
+  "img": "icons/sundries/survival/bedroll-grey.webp",
+  "data": {
+    "description": {
+      "value": "<p>Roll of cloth used by traveller to sleep in.</p>",
+      "chat": "",
+      "unidentified": ""
+    },
+    "source": "PHB pg. 150",
+    "quantity": 1,
+    "weight": 7,
+    "price": 1,
+    "attunement": 0,
+    "equipped": false,
+    "rarity": "common",
+    "identified": true,
+    "damage": {
+      "parts": []
+    }
+  },
+  "effects": [],
+  "flags": {
+    "core": {
+      "sourceId": "Compendium.dnd5e.items.DVXmyetZuvxbzAwW"
+    },
+    "exportSource": {
+      "world": "zendikar",
+      "system": "dnd5e",
+      "coreVersion": "9.269",
+      "systemVersion": "1.6.0"
+    }
+  }
+}

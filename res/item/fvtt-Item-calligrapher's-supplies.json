@@ -1,0 +1,41 @@
+{
+  "name": "Calligrapher's Supplies",
+  "type": "tool",
+  "img": "icons/tools/scribal/pen-steel-grey-brown.webp",
+  "data": {
+    "description": {
+      "value": "<p>These special tools include the items needed to pursue a craft or trade in calligraphy.</p>\n<p>Proficiency with a set of artisan’s tools lets you add your proficiency bonus to any ability checks you make using the tools in your craft. Each type of artisan’s tools requires a separate proficiency.</p>",
+      "chat": "",
+      "unidentified": ""
+    },
+    "source": "PHB pg. 154",
+    "quantity": 1,
+    "weight": 5,
+    "price": 10,
+    "attunement": 0,
+    "equipped": false,
+    "rarity": "common",
+    "identified": true,
+    "toolType": "art",
+    "baseItem": "calligrapher",
+    "ability": "int",
+    "chatFlavor": "",
+    "proficient": 0,
+    "bonus": "",
+    "damage": {
+      "parts": []
+    }
+  },
+  "effects": [],
+  "flags": {
+    "core": {
+      "sourceId": "Compendium.dnd5e.items.jhjo20QoiD5exf09"
+    },
+    "exportSource": {
+      "world": "zendikar",
+      "system": "dnd5e",
+      "coreVersion": "9.269",
+      "systemVersion": "1.6.0"
+    }
+  }
+}
