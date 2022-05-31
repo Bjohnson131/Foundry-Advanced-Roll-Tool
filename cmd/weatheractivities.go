@@ -1,6 +1,7 @@
 package main
 
 import (
+	"FoundryGoRollTables/pkg/item"
 	"FoundryGoRollTables/pkg/table/abstract/fair"
 	"FoundryGoRollTables/pkg/table/combinatorial/exclusive"
 	"encoding/json"
@@ -8,25 +9,30 @@ import (
 )
 
 func main() {
+	myWeapon := item.WeaponItem{}
+	err := json.Unmarshal([]byte(myJSON), &myWeapon)
+
+	fmt.Println(err)
+
 	SunnyRollTable := SunnyWeatherTable.ToRollTable()
 	RainyRollTable := RainyWeatherTable.ToRollTable()
 	StormyRollTable := StormyWeatherTable.ToRollTable()
-	WeatherTable  := exclusive.Table{
-		Name:  "Weather and activities",
+	WeatherTable := exclusive.Table{
+		Name: "Weather and activities",
 		Tables: []exclusive.WeightedTables{
 			{
 				Weight: 80,
-				Table: &SunnyRollTable,
+				Table:  &SunnyRollTable,
 			},
 
 			{
 				Weight: 12,
-				Table: &RainyRollTable,
+				Table:  &RainyRollTable,
 			},
 
 			{
 				Weight: 8,
-				Table: &StormyRollTable,
+				Table:  &StormyRollTable,
 			},
 		},
 	}
@@ -51,8 +57,8 @@ func main() {
 // every wed is pennance day!
 
 var SunnyWeatherTable = fair.FairTable{
-	Name: "Sunny Weather activities",
-	Items: SunnyWeatherElements,
+	Name:        "Sunny Weather activities",
+	Items:       SunnyWeatherElements,
 	Replacement: false,
 }
 var SunnyWeatherElements = []fair.FairLI{
@@ -67,8 +73,8 @@ var SunnyWeatherElements = []fair.FairLI{
 }
 
 var RainyWeatherTable = fair.FairTable{
-	Name: "Rainy Weather activities",
-	Items: RainyWeatherElements,
+	Name:        "Rainy Weather activities",
+	Items:       RainyWeatherElements,
 	Replacement: false,
 }
 var RainyWeatherElements = []fair.FairLI{
@@ -76,8 +82,8 @@ var RainyWeatherElements = []fair.FairLI{
 }
 
 var StormyWeatherTable = fair.FairTable{
-	Name: "Stormy Weather activities",
-	Items: StormyWeatherElements,
+	Name:        "Stormy Weather activities",
+	Items:       StormyWeatherElements,
 	Replacement: false,
 }
 var StormyWeatherElements = []fair.FairLI{
@@ -98,3 +104,104 @@ var AnyWeatherElements = []fair.FairLI{
 	fair.AsFairLIText("Kaya's orientery has gone haywire- the centering no longer point to the loadstone."),
 	fair.AsFairLIText("Umberhulks from the nearby mountains have begun their breeding season."),
 }
+
+var myJSON = `{
+  "name": "Rapier",
+  "type": "weapon",
+  "img": "icons/weapons/swords/sword-guard-brown.webp",
+  "data": {
+    "description": {
+      "value": "<p>A thin tensile metal blade, light in weight but long in reach designed for quick darting attacks to target weak points in enemy defenses with lightning swiftness.</p>",
+      "chat": "",
+      "unidentified": ""
+    },
+    "source": "PHB pg. 149",
+    "quantity": 1,
+    "weight": 2,
+    "price": "25",
+    "attunement": 0,
+    "equipped": false,
+    "rarity": "common",
+    "identified": true,
+    "activation": {
+      "type": "action",
+      "cost": 1,
+      "condition": ""
+    },
+    "duration": {
+      "value": null,
+      "units": ""
+    },
+    "target": {
+      "value": null,
+      "width": null,
+      "units": "",
+      "type": ""
+    },
+    "range": {
+      "value": 5,
+      "long": null,
+      "units": "ft"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null
+    },
+    "consume": {
+      "type": "",
+      "target": null,
+      "amount": null
+    },
+    "ability": null,
+    "actionType": "mwak",
+    "attackBonus": 0,
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [
+        [
+          "1d8 + @mod",
+          "piercing"
+        ]
+      ],
+      "versatile": ""
+    },
+    "formula": "",
+    "save": {
+      "ability": "",
+      "dc": null,
+      "scaling": "spell"
+    },
+    "armor": {
+      "value": 10
+    },
+    "hp": {
+      "value": 0,
+      "max": 0,
+      "dt": null,
+      "conditions": ""
+    },
+    "weaponType": "martialM",
+    "baseItem": "rapier",
+    "properties": {
+      "fin": true
+    },
+    "proficient": false
+  },
+  "effects": [],
+  "flags": {
+    "core": {
+      "sourceId": "Compendium.dnd5e.items.Tobce1hexTnDk4sV"
+    },
+    "exportSource": {
+      "world": "zendikar",
+      "system": "dnd5e",
+      "coreVersion": "9.269",
+      "systemVersion": "1.6.0"
+    }
+  }
+}`
