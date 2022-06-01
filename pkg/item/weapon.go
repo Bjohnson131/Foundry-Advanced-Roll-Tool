@@ -3,7 +3,7 @@ package item
 import (
 	"FoundryGoRollTables/pkg/item/types"
 	"FoundryGoRollTables/pkg/utils"
-	"strconv"
+	"encoding/json"
 )
 
 type WeaponItem struct {
@@ -79,15 +79,14 @@ type ItemRange struct {
 
 type ItemUses struct {
 	CurrentUses *int                    `json:"value"`
-	MaxUses     string                  `json:"max"`
+	MaxUses     utils.DynamicInt        `json:"max"`
 	Per         types.LimitedUsePeriods `json:"per"`
 }
 
 func (d *ItemUses) ValidateAndFill() {
 	if d.MaxUses != "" && d.CurrentUses == nil {
-		if val, err := strconv.Atoi(d.MaxUses); err == nil {
-			d.CurrentUses = &val
-		}
+		num, _ := d.MaxUses.Int64()
+		d.CurrentUses = utils.Int(int(num))
 	}
 }
 
@@ -191,7 +190,7 @@ type WeaponData struct {
 	Consume     ItemConsume             `json:"consume"`
 	Ability     types.AbilityType       `json:"ability"`
 	ActionType  string                  `json:"actionType"`
-	AttackBonus string                  `json:"attackBonus"`
+	AttackBonus json.Number             `json:"attackBonus"`
 	ChatFlavor  string                  `json:"chatFlavor"`
 	Critical    ItemCritical            `json:"critical"`
 	Damage      ItemDamage              `json:"damage"`

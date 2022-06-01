@@ -6,13 +6,19 @@ import (
 	"FoundryGoRollTables/pkg/table/combinatorial/exclusive"
 	"encoding/json"
 	"fmt"
+	"io/fs"
+	"io/ioutil"
+	"os"
 )
 
 func main() {
-	myWeapon := item.WeaponItem{}
+	/*myWeapon := item.WeaponItem{}
 	err := json.Unmarshal([]byte(myJSON), &myWeapon)
 
-	fmt.Println(err)
+
+	*/
+	things := GetItemJSONs()
+	CreateWeapons("./res/item/weapon/", things)
 
 	SunnyRollTable := SunnyWeatherTable.ToRollTable()
 	RainyRollTable := RainyWeatherTable.ToRollTable()
@@ -105,103 +111,28 @@ var AnyWeatherElements = []fair.FairLI{
 	fair.AsFairLIText("Umberhulks from the nearby mountains have begun their breeding season."),
 }
 
-var myJSON = `{
-  "name": "Rapier",
-  "type": "weapon",
-  "img": "icons/weapons/swords/sword-guard-brown.webp",
-  "data": {
-    "description": {
-      "value": "<p>A thin tensile metal blade, light in weight but long in reach designed for quick darting attacks to target weak points in enemy defenses with lightning swiftness.</p>",
-      "chat": "",
-      "unidentified": ""
-    },
-    "source": "PHB pg. 149",
-    "quantity": 1,
-    "weight": 2,
-    "price": "25",
-    "attunement": 0,
-    "equipped": false,
-    "rarity": "common",
-    "identified": true,
-    "activation": {
-      "type": "action",
-      "cost": 1,
-      "condition": ""
-    },
-    "duration": {
-      "value": null,
-      "units": ""
-    },
-    "target": {
-      "value": null,
-      "width": null,
-      "units": "",
-      "type": ""
-    },
-    "range": {
-      "value": 5,
-      "long": null,
-      "units": "ft"
-    },
-    "uses": {
-      "value": null,
-      "max": "",
-      "per": null
-    },
-    "consume": {
-      "type": "",
-      "target": null,
-      "amount": null
-    },
-    "ability": null,
-    "actionType": "mwak",
-    "attackBonus": 0,
-    "chatFlavor": "",
-    "critical": {
-      "threshold": null,
-      "damage": ""
-    },
-    "damage": {
-      "parts": [
-        [
-          "1d8 + @mod",
-          "piercing"
-        ]
-      ],
-      "versatile": ""
-    },
-    "formula": "",
-    "save": {
-      "ability": "",
-      "dc": null,
-      "scaling": "spell"
-    },
-    "armor": {
-      "value": 10
-    },
-    "hp": {
-      "value": 0,
-      "max": 0,
-      "dt": null,
-      "conditions": ""
-    },
-    "weaponType": "martialM",
-    "baseItem": "rapier",
-    "properties": {
-      "fin": true
-    },
-    "proficient": false
-  },
-  "effects": [],
-  "flags": {
-    "core": {
-      "sourceId": "Compendium.dnd5e.items.Tobce1hexTnDk4sV"
-    },
-    "exportSource": {
-      "world": "zendikar",
-      "system": "dnd5e",
-      "coreVersion": "9.269",
-      "systemVersion": "1.6.0"
-    }
-  }
-}`
+func GetItemJSONs() []fs.FileInfo {
+	files, _ := ioutil.ReadDir("./res/item/weapon")
+	return files
+}
+
+func CreateWeapons(path string, info []fs.FileInfo) {
+	for _, v := range info {
+		file, err := os.Open(path + v.Name())
+		if err != nil {
+			fmt.Println(err)
+			fmt.Println(v.Name())
+		}
+		fileContents, err := ioutil.ReadAll(file)
+		if err != nil {
+			fmt.Println(err)
+			fmt.Println(v.Name())
+		}
+		weapon := item.WeaponItem{}
+		err = json.Unmarshal(fileContents, &weapon)
+		if err != nil {
+			fmt.Println(err)
+			fmt.Println(v.Name())
+		}
+	}
+}

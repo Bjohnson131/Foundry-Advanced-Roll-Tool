@@ -1,6 +1,9 @@
 package item
 
-import "FoundryGoRollTables/pkg/item/types"
+import (
+	"FoundryGoRollTables/pkg/item/types"
+	"FoundryGoRollTables/pkg/utils"
+)
 
 type BaseItem struct {
 	Name    string         `json:"name"`
@@ -37,7 +40,7 @@ type BaseItemData struct {
 	Source      string               `json:"source"`
 	Quantity    int                  `json:"quantity"`
 	Weight      float64              `json:"weight"`
-	Price       string               `json:"price"`
+	Price       utils.DynamicFloat   `json:"price"`
 	Attunement  types.AttunementType `json:"attunement"`
 	Equipped    bool                 `json:"equipped"`
 	Rarity      types.Rarity         `json:"rarity"`
